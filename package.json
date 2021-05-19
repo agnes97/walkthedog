@@ -7,6 +7,7 @@
     "url": "https://github.com/out-fox-it/walkthedog"
   },
   "author": "Jana Chaloupková (https://github.com/agnes97)",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "vite",

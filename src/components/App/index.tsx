@@ -11,8 +11,8 @@ export const App: FunctionComponent = () => (
 		flexDirection="column"
 		alignItems="center"
 	>
-		<Logo />
-		<Typography variant="h1" align="center">
+		<Logo width={256} height={256} />
+		<Typography variant="h2" component="h1" align="center">
 			Walk The Dog!
 		</Typography>
 	</Box>

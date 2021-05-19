@@ -1,25 +1,28 @@
 {
-  "name": "walkthedog",
-  "version": "0.0.0",
-  "description": "Application for scheduling walking the dog.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/out-fox-it/walkthedog"
-  },
-  "author": "Jana Chaloupková (https://github.com/agnes97)",
-  "license": "MIT",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "serve": "vite preview"
-  },
-  "dependencies": {
-    "preact": "^10.5.13"
-  },
-  "devDependencies": {
-    "@preact/preset-vite": "^2.0.0",
-    "typescript": "^4.1.3",
-    "vite": "^2.3.3"
-  }
+	"name": "walkthedog",
+	"version": "0.0.0",
+	"description": "Application for scheduling walking the dog.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/out-fox-it/walkthedog"
+	},
+	"author": "Jana Chaloupková (https://github.com/agnes97)",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"serve": "vite preview",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
+	},
+	"dependencies": {
+		"preact": "^10.5.13"
+	},
+	"devDependencies": {
+		"@preact/preset-vite": "^2.0.0",
+		"prettier": "^2.3.0",
+		"typescript": "^4.1.3",
+		"vite": "^2.3.3"
+	}
 }

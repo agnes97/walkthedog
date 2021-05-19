@@ -1,6 +1,13 @@
 {
   "name": "walkthedog",
   "version": "0.0.0",
+  "description": "Application for scheduling walking the dog.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/out-fox-it/walkthedog"
+  },
+  "author": "Jana Chaloupková (https://github.com/agnes97)",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

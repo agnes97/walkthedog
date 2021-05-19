@@ -1,7 +1,15 @@
+import '@fontsource/roboto'
 import { render } from 'preact'
+import { CssBaseline, ThemeProvider } from '@material-ui/core'
 
+import { darkTheme } from './theme'
 import { App } from './components/App'
-import './index.css'
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-render(<App />, document.getElementById('app')!)
+render(
+	<ThemeProvider theme={darkTheme}>
+		<CssBaseline />
+		<App />
+	</ThemeProvider>,
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	document.getElementById('app')!
+)

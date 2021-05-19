@@ -19,6 +19,8 @@
 		"lint:check": "eslint src/"
 	},
 	"dependencies": {
+		"@fontsource/roboto": "^4.3.0",
+		"@material-ui/core": "^4.11.4",
 		"preact": "^10.5.13"
 	},
 	"devDependencies": {

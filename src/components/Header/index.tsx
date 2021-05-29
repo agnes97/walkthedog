@@ -37,6 +37,7 @@ export const Header: FunctionComponent = () => {
 			alignItems="center"
 			flexWrap="wrap"
 			className={transform}
+			mb={3}
 		>
 			<Link className={logo} component={RouterLink} to="/">
 				<Logo width={256} height={256} />

@@ -1,15 +1,10 @@
 import { FunctionComponent } from 'preact'
 import { useState } from 'preact/hooks'
-import { Box, Button, styled } from '@material-ui/core'
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
-import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
+import { Box } from '@material-ui/core'
 
 import { Walk } from './types'
+import { WalkControl } from './components/WalkControl'
 import { WalkList } from './components/WalkList'
-
-const StyledButton = styled(Button)({
-	margin: '1em',
-})
 
 export const Walks: FunctionComponent = () => {
 	const [walks, setWalks] = useState<Walk[]>([])
@@ -35,29 +30,12 @@ export const Walks: FunctionComponent = () => {
 	}
 
 	return (
-		<Box display="flex" flexDirection="column" alignItems="center" mb={3}>
-			{!currentWalk && (
-				<StyledButton
-					variant="contained"
-					color="primary"
-					size="large"
-					startIcon={<PlayCircleOutlineIcon />}
-					onClick={startWalk}
-				>
-					Start
-				</StyledButton>
-			)}
-			{currentWalk && (
-				<StyledButton
-					variant="contained"
-					color="secondary"
-					size="large"
-					startIcon={<PauseCircleOutlineIcon />}
-					onClick={stopWalk}
-				>
-					Stop
-				</StyledButton>
-			)}
+		<Box display="flex" flexDirection="column" mb={3}>
+			<WalkControl
+				walk={currentWalk}
+				onWalkStart={startWalk}
+				onWalkStop={stopWalk}
+			/>
 			<WalkList walks={walks} currentWalk={currentWalk} />
 		</Box>
 	)

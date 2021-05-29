@@ -5,6 +5,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
 import { Walk } from '../../types'
+import { WalkActions } from '../WalkActions'
 import { Time, TimeUnit } from './types'
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -76,6 +77,7 @@ export const WalkControl: FunctionComponent<{
 						<Typography variant="h5" align="center">
 							UŽ VENČÍŠ: {walkTime.value} {walkTime.unit}
 						</Typography>
+						<WalkActions />
 					</StyledPaper>
 					<StyledButton
 						variant="contained"

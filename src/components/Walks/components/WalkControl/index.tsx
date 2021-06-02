@@ -31,12 +31,17 @@ const toTimeFromNow = (date: Date): Time => {
 		return {
 			value: Math.floor(secondsFromNow),
 			unit: TimeUnit.Seconds,
+			color: 'secondary',
 		}
 	}
 
 	const minutesFromNow = secondsFromNow / 60
 
-	return { value: Math.floor(minutesFromNow), unit: TimeUnit.Minutes }
+	return {
+		value: Math.floor(minutesFromNow),
+		unit: TimeUnit.Minutes,
+		color: 'primary',
+	}
 }
 
 export const WalkControl: FunctionComponent<{
@@ -47,6 +52,7 @@ export const WalkControl: FunctionComponent<{
 	const [walkTime, setWalkTime] = useState<Time>({
 		value: 0,
 		unit: TimeUnit.Seconds,
+		color: 'textPrimary',
 	})
 
 	useEffect(() => {
@@ -74,7 +80,7 @@ export const WalkControl: FunctionComponent<{
 			) : (
 				<>
 					<StyledPaper elevation={3}>
-						<Typography variant="h5" align="center">
+						<Typography variant="h5" align="center" color={walkTime.color}>
 							UŽ VENČÍŠ: {walkTime.value} {walkTime.unit}
 						</Typography>
 						<WalkActions />

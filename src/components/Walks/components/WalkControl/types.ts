@@ -1,3 +1,5 @@
+import { TypographyTypeMap } from '@material-ui/core'
+
 export enum TimeUnit {
 	Seconds = 'S',
 	Minutes = 'M',
@@ -7,4 +9,5 @@ export enum TimeUnit {
 export type Time = {
 	value: number
 	unit: TimeUnit
+	color: TypographyTypeMap['props']['color']
 }

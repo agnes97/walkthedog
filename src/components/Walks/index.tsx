@@ -7,14 +7,20 @@ import { WalkControl } from './components/WalkControl'
 import { WalkList } from './components/WalkList'
 
 export const Walks: FunctionComponent = () => {
-	const [walks, setWalks] = useState<Walk[]>([])
 	const [currentWalk, setCurrentWalk] = useState<Walk | null>(null)
+	const [walks, setWalks] = useState<Walk[]>([])
 
 	const startWalk = () => {
 		setCurrentWalk({
 			startedAt: new Date(),
 			endedAt: null,
 			walker: 'XXX',
+			walkActions: {
+				pee: false,
+				poop: false,
+				food: false,
+				pills: false,
+			},
 		})
 	}
 

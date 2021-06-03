@@ -83,7 +83,7 @@ export const WalkControl: FunctionComponent<{
 						<Typography variant="h5" align="center" color={walkTime.color}>
 							UŽ VENČÍŠ: {walkTime.value} {walkTime.unit}
 						</Typography>
-						<WalkActions />
+						<WalkActions walkActions={walk.walkActions} />
 					</StyledPaper>
 					<StyledButton
 						variant="contained"

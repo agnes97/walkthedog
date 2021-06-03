@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'preact'
-import { useCallback, useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { Box, IconButton, useTheme } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
 
@@ -14,56 +14,83 @@ const WalkAction: FunctionComponent<{
 	Icon: SvgIconComponent
 	walkAction: boolean
 	onClick: () => void
-}> = ({ Icon, walkAction, onClick }) => (
-	<IconButton color={walkAction ? 'primary' : 'inherit'} onClick={onClick}>
-		<Icon fontSize="large" />
-	</IconButton>
-)
+	isButton?: boolean
+}> = ({ Icon, walkAction, onClick, isButton }) => {
+	const color = walkAction ? 'primary' : 'inherit'
 
-export const WalkActions: FunctionComponent<{ walkActions: WalkActionsType }> =
-	({ walkActions }) => {
-		const theme = useTheme()
-		const [currentWalkActions, setCurrentWalkActions] =
-			useState<WalkActionsType>(walkActions)
+	return isButton ? (
+		<IconButton color={color} onClick={onClick}>
+			<Icon fontSize="large" />
+		</IconButton>
+	) : (
+		<Icon fontSize="large" color={color} />
+	)
+}
 
-		const { pee, poop, food, pills } = currentWalkActions
+export const WalkActions: FunctionComponent<{
+	walkActions: WalkActionsType
+	onWalkActionsChange?: (walkActions: WalkActionsType) => void
+}> = ({ walkActions, onWalkActionsChange }) => {
+	const theme = useTheme()
+	const [currentWalkActions, setCurrentWalkActions] = useState<WalkActionsType>(
+		{
+			pee: false,
+			poop: false,
+			food: false,
+			pills: false,
+		}
+	)
 
-		const onWalkActionClick = useCallback(
-			(walkAction: keyof WalkActionsType) => {
-				setCurrentWalkActions({
-					...currentWalkActions,
-					[walkAction]: !currentWalkActions[walkAction],
-				})
-			},
-			[currentWalkActions, setCurrentWalkActions]
-		)
+	useEffect(() => {
+		setCurrentWalkActions(walkActions)
+	}, [walkActions])
 
-		return (
-			<Box
-				display="flex"
-				justifyContent="space-between"
-				color={theme.palette.background.default}
-			>
-				<WalkAction
-					Icon={OpacityOutlinedIcon}
-					walkAction={pee}
-					onClick={() => onWalkActionClick('pee')}
-				/>
-				<WalkAction
-					Icon={DeleteOutlineOutlinedIcon}
-					walkAction={poop}
-					onClick={() => onWalkActionClick('poop')}
-				/>
-				<WalkAction
-					Icon={LocalDiningOutlinedIcon}
-					walkAction={food}
-					onClick={() => onWalkActionClick('food')}
-				/>
-				<WalkAction
-					Icon={LocalHospitalOutlinedIcon}
-					walkAction={pills}
-					onClick={() => onWalkActionClick('pills')}
-				/>
-			</Box>
-		)
+	const { pee, poop, food, pills } = currentWalkActions
+
+	const areWalkActionsClickable = Boolean(onWalkActionsChange)
+
+	const onWalkActionClick = (walkAction: keyof WalkActionsType) => {
+		if (onWalkActionsChange) {
+			const updatedWalkActions: WalkActionsType = {
+				...currentWalkActions,
+				[walkAction]: !currentWalkActions[walkAction],
+			}
+
+			setCurrentWalkActions(updatedWalkActions)
+			onWalkActionsChange(updatedWalkActions)
+		}
 	}
+
+	return (
+		<Box
+			display="flex"
+			justifyContent="space-between"
+			color={theme.palette.background.default}
+		>
+			<WalkAction
+				Icon={OpacityOutlinedIcon}
+				walkAction={pee}
+				onClick={() => onWalkActionClick('pee')}
+				isButton={areWalkActionsClickable}
+			/>
+			<WalkAction
+				Icon={DeleteOutlineOutlinedIcon}
+				walkAction={poop}
+				onClick={() => onWalkActionClick('poop')}
+				isButton={areWalkActionsClickable}
+			/>
+			<WalkAction
+				Icon={LocalDiningOutlinedIcon}
+				walkAction={food}
+				onClick={() => onWalkActionClick('food')}
+				isButton={areWalkActionsClickable}
+			/>
+			<WalkAction
+				Icon={LocalHospitalOutlinedIcon}
+				walkAction={pills}
+				onClick={() => onWalkActionClick('pills')}
+				isButton={areWalkActionsClickable}
+			/>
+		</Box>
+	)
+}

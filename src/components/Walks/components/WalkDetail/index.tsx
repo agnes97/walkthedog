@@ -13,6 +13,7 @@ import TimerIcon from '@material-ui/icons/Timer'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 
 import { Walk } from '../../types'
+import { WalkActions } from '../WalkActions'
 
 const CardItem: FunctionComponent<{
 	Icon: SvgIconComponent
@@ -50,7 +51,7 @@ export const WalkDetail: FunctionComponent<{ walk: Walk; title?: string }> = ({
 		component="article"
 		elevation={3}
 	>
-		<List>
+		<List dense>
 			{title && (
 				<ListItem>
 					<ListItemText
@@ -79,6 +80,11 @@ export const WalkDetail: FunctionComponent<{ walk: Walk; title?: string }> = ({
 				Icon={PersonIcon}
 				text={walk.walker ?? 'Unknown'}
 			/>
+			<ListItem>
+				<ListItemText
+					primary={<WalkActions walkActions={walk.walkActions} />}
+				/>
+			</ListItem>
 		</List>
 	</Paper>
 )

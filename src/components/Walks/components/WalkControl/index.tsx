@@ -48,7 +48,8 @@ export const WalkControl: FunctionComponent<{
 	walk: Walk | null
 	onWalkStart: () => void
 	onWalkStop: () => void
-}> = ({ walk, onWalkStart, onWalkStop }) => {
+	onWalkChange: (walk: Walk) => void
+}> = ({ walk, onWalkStart, onWalkStop, onWalkChange }) => {
 	const [walkTime, setWalkTime] = useState<Time>({
 		value: 0,
 		unit: TimeUnit.Seconds,
@@ -83,7 +84,12 @@ export const WalkControl: FunctionComponent<{
 						<Typography variant="h5" align="center" color={walkTime.color}>
 							UŽ VENČÍŠ: {walkTime.value} {walkTime.unit}
 						</Typography>
-						<WalkActions walkActions={walk.walkActions} />
+						<WalkActions
+							walkActions={walk.walkActions}
+							onWalkActionsChange={(walkActions) =>
+								onWalkChange({ ...walk, walkActions })
+							}
+						/>
 					</StyledPaper>
 					<StyledButton
 						variant="contained"

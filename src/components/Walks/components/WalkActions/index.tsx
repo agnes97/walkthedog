@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { Box, IconButton, useTheme } from '@material-ui/core'
 import { SvgIconComponent } from '@material-ui/icons'
@@ -8,7 +8,7 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import LocalDiningOutlinedIcon from '@material-ui/icons/LocalDiningOutlined'
 import LocalHospitalOutlinedIcon from '@material-ui/icons/LocalHospitalOutlined'
 
-import { WalkActions as WalkActionsType } from '../../types'
+import type { WalkActions as WalkActionsType } from '../../types'
 
 const WalkAction: FunctionComponent<{
 	Icon: SvgIconComponent

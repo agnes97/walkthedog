@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import { Grid } from '@material-ui/core'
 
-import { Walk } from '../../types'
+import type { Walk } from '../../types'
 import { WalkDetail } from '../WalkDetail'
 
 export const WalkList: FunctionComponent<{

@@ -1,10 +1,10 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import { useState } from 'preact/hooks'
 import { Box } from '@material-ui/core'
 
-import { Walk } from './types'
 import { WalkControl } from './components/WalkControl'
 import { WalkList } from './components/WalkList'
+import type { Walk } from './types'
 
 export const Walks: FunctionComponent = () => {
 	const [currentWalk, setCurrentWalk] = useState<Walk | null>(null)

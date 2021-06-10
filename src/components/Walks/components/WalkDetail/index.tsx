@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import {
 	List,
 	ListItem,
@@ -12,7 +12,7 @@ import PersonIcon from '@material-ui/icons/Person'
 import TimerIcon from '@material-ui/icons/Timer'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 
-import { Walk } from '../../types'
+import type { Walk } from '../../types'
 import { WalkActions } from '../WalkActions'
 
 const CardItem: FunctionComponent<{

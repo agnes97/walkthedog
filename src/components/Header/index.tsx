@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import { Box, Link, makeStyles, Typography } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 

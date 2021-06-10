@@ -1,4 +1,4 @@
-import { TypographyTypeMap } from '@material-ui/core'
+import type { TypographyTypeMap } from '@material-ui/core'
 
 export enum TimeUnit {
 	Seconds = 'S',

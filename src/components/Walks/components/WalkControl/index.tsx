@@ -1,12 +1,12 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { Box, Button, Paper, styled, Typography } from '@material-ui/core'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
-import { Walk } from '../../types'
-import { WalkActions } from '../WalkActions'
 import { Time, TimeUnit } from './types'
+import type { Walk } from '../../types'
+import { WalkActions } from '../WalkActions'
 
 const StyledButton = styled(Button)(({ theme }) => ({
 	padding: theme.spacing(6),

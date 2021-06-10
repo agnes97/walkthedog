@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'preact'
+import type { FunctionComponent } from 'preact'
 import { useTheme } from '@material-ui/core'
 
 export const Logo: FunctionComponent<{ width?: number; height?: number }> = ({

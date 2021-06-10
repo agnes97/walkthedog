@@ -4,7 +4,8 @@ import { Box, Button, Paper, styled, Typography } from '@material-ui/core'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
-import { Time, TimeUnit } from './types'
+import { TimeUnit, toTimeFromNow } from '../../../../utils/time'
+import type { Time } from '../../../../utils/time/types'
 import type { Walk } from '../../types'
 import { WalkActions } from '../WalkActions'
 
@@ -21,29 +22,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	alignItems: 'center',
 }))
 
-// TODO: Add hours with minutes
-const toTimeFromNow = (date: Date): Time => {
-	const now = new Date()
-	const millisecondsFromNow = now.getTime() - date.getTime()
-	const secondsFromNow = millisecondsFromNow / 1000
-
-	if (secondsFromNow < 60) {
-		return {
-			value: Math.floor(secondsFromNow),
-			unit: TimeUnit.Seconds,
-			color: 'secondary',
-		}
-	}
-
-	const minutesFromNow = secondsFromNow / 60
-
-	return {
-		value: Math.floor(minutesFromNow),
-		unit: TimeUnit.Minutes,
-		color: 'primary',
-	}
-}
-
 export const WalkControl: FunctionComponent<{
 	walk: Walk | null
 	onWalkStart: () => void
@@ -51,9 +29,7 @@ export const WalkControl: FunctionComponent<{
 	onWalkChange: (walk: Walk) => void
 }> = ({ walk, onWalkStart, onWalkStop, onWalkChange }) => {
 	const [walkTime, setWalkTime] = useState<Time>({
-		value: 0,
-		unit: TimeUnit.Seconds,
-		color: 'textPrimary',
+		fragments: [{ value: 0, unit: TimeUnit.Seconds }],
 	})
 
 	useEffect(() => {
@@ -82,7 +58,12 @@ export const WalkControl: FunctionComponent<{
 				<>
 					<StyledPaper elevation={3}>
 						<Typography variant="h5" align="center" color={walkTime.color}>
-							UŽ VENČÍŠ: {walkTime.value} {walkTime.unit}
+							UŽ VENČÍŠ:{' '}
+							{walkTime.fragments
+								.map(
+									(timeFragment) => `${timeFragment.value}${timeFragment.unit}`
+								)
+								.join(' ')}
 						</Typography>
 						<WalkActions
 							walkActions={walk.walkActions}

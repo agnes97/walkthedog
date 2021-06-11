@@ -23,7 +23,9 @@ const WalkAction: FunctionComponent<{
 			<Icon fontSize="large" />
 		</IconButton>
 	) : (
-		<Icon fontSize="large" color={color} />
+		<Box display="flex" alignItems="center" p={1.5}>
+			<Icon fontSize="large" color={color} />
+		</Box>
 	)
 }
 

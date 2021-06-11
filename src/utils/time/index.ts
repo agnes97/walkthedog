@@ -6,16 +6,15 @@ export enum TimeUnit {
 	Hours = 'H',
 }
 
-export const toTimeFromNow = (date: Date): Time => {
-	const now = new Date()
-	const millisecondsFromNow = now.getTime() - date.getTime()
-	const secondsFromNow = millisecondsFromNow / 1000
+export const toTime = (from: Date, to = new Date()): Time => {
+	const milliseconds = to.getTime() - from.getTime()
+	const seconds = milliseconds / 1000
 
-	if (secondsFromNow < 60) {
+	if (seconds < 60) {
 		return {
 			fragments: [
 				{
-					value: Math.floor(secondsFromNow),
+					value: Math.floor(seconds),
 					unit: TimeUnit.Seconds,
 				},
 			],
@@ -23,17 +22,17 @@ export const toTimeFromNow = (date: Date): Time => {
 		}
 	}
 
-	const minutesFromNow = secondsFromNow / 60
+	const minutes = seconds / 60
 
-	if (minutesFromNow < 60) {
+	if (minutes < 60) {
 		return {
 			fragments: [
 				{
-					value: Math.floor(minutesFromNow),
+					value: Math.floor(minutes),
 					unit: TimeUnit.Minutes,
 				},
 				{
-					value: Math.floor(secondsFromNow % 60),
+					value: Math.floor(seconds % 60),
 					unit: TimeUnit.Seconds,
 				},
 			],
@@ -41,23 +40,28 @@ export const toTimeFromNow = (date: Date): Time => {
 		}
 	}
 
-	const hoursFromNow = minutesFromNow / 60
+	const hours = minutes / 60
 
 	return {
 		fragments: [
 			{
-				value: Math.floor(hoursFromNow),
+				value: Math.floor(hours),
 				unit: TimeUnit.Hours,
 			},
 			{
-				value: Math.floor(minutesFromNow % 60),
+				value: Math.floor(minutes % 60),
 				unit: TimeUnit.Minutes,
 			},
 			{
-				value: Math.floor(secondsFromNow % 60),
+				value: Math.floor(seconds % 60),
 				unit: TimeUnit.Seconds,
 			},
 		],
 		color: 'secondary',
 	}
 }
+
+export const timeToString = (time: Time): string =>
+	time.fragments
+		.map((timeFragment) => `${timeFragment.value}${timeFragment.unit}`)
+		.join(' ')

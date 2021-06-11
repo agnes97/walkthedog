@@ -1,25 +1,32 @@
 import type { FunctionComponent } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
-import { Box, Button, Paper, styled, Typography } from '@material-ui/core'
+import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
-import { TimeUnit, toTimeFromNow } from '../../../../utils/time'
+import { timeToString, TimeUnit, toTime } from '../../../../utils/time'
 import type { Time } from '../../../../utils/time/types'
 import type { Walk } from '../../types'
 import { WalkActions } from '../WalkActions'
 
-const StyledButton = styled(Button)(({ theme }) => ({
-	padding: theme.spacing(6),
-}))
+const useStyles = makeStyles((theme) => ({
+	button: {
+		padding: theme.spacing(6),
+	},
+	currentWalk: {
+		flexGrow: 1,
+		marginRight: theme.spacing(2),
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-	flexGrow: 1,
-	marginRight: theme.spacing(2),
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'center',
-	alignItems: 'center',
+		[theme.breakpoints.down('sm')]: {
+			marginRight: theme.spacing(0),
+			marginBottom: theme.spacing(2),
+			padding: theme.spacing(2, 0),
+		},
+	},
 }))
 
 export const WalkControl: FunctionComponent<{
@@ -28,23 +35,29 @@ export const WalkControl: FunctionComponent<{
 	onWalkStop: () => void
 	onWalkChange: (walk: Walk) => void
 }> = ({ walk, onWalkStart, onWalkStop, onWalkChange }) => {
+	const { button, currentWalk } = useStyles()
+
 	const [walkTime, setWalkTime] = useState<Time>({
 		fragments: [{ value: 0, unit: TimeUnit.Seconds }],
 	})
 
 	useEffect(() => {
 		if (walk) {
-			const setCurrentWalkTime = () =>
-				setWalkTime(toTimeFromNow(walk.startedAt))
+			const setCurrentWalkTime = () => setWalkTime(toTime(walk.startedAt))
 			const interval = setInterval(setCurrentWalkTime, 1000)
 			return () => clearInterval(interval)
 		}
 	}, [walk, setWalkTime])
 
 	return (
-		<Box display="flex" justifyContent="center" mb={3}>
+		<Box
+			display="flex"
+			justifyContent="center"
+			flexDirection={{ xs: 'column', md: 'row' }}
+		>
 			{!walk ? (
-				<StyledButton
+				<Button
+					className={button}
 					variant="contained"
 					color="primary"
 					size="large"
@@ -53,17 +66,12 @@ export const WalkControl: FunctionComponent<{
 					fullWidth
 				>
 					Start
-				</StyledButton>
+				</Button>
 			) : (
 				<>
-					<StyledPaper elevation={3}>
+					<Paper className={currentWalk} elevation={3}>
 						<Typography variant="h5" align="center" color={walkTime.color}>
-							UŽ VENČÍŠ:{' '}
-							{walkTime.fragments
-								.map(
-									(timeFragment) => `${timeFragment.value}${timeFragment.unit}`
-								)
-								.join(' ')}
+							UŽ VENČÍŠ: {timeToString(walkTime)}
 						</Typography>
 						<WalkActions
 							walkActions={walk.walkActions}
@@ -71,8 +79,9 @@ export const WalkControl: FunctionComponent<{
 								onWalkChange({ ...walk, walkActions })
 							}
 						/>
-					</StyledPaper>
-					<StyledButton
+					</Paper>
+					<Button
+						className={button}
 						variant="contained"
 						color="secondary"
 						size="large"
@@ -80,7 +89,7 @@ export const WalkControl: FunctionComponent<{
 						onClick={onWalkStop}
 					>
 						Stop
-					</StyledButton>
+					</Button>
 				</>
 			)}
 		</Box>

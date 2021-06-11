@@ -43,7 +43,7 @@ export const Walks: FunctionComponent = () => {
 				onWalkStop={stopWalk}
 				onWalkChange={(walk) => setCurrentWalk(walk)}
 			/>
-			<WalkList walks={walks} currentWalk={currentWalk} />
+			<WalkList walks={walks} />
 		</Box>
 	)
 }

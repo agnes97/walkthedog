@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from 'preact/hooks'
 import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
+import { timeToString, TimeUnit, toTime } from '@utils/time'
+import type { Time } from '@utils/time/types'
 
-import { timeToString, TimeUnit, toTime } from '../../../../utils/time'
-import type { Time } from '../../../../utils/time/types'
 import type { Walk } from '../../types'
 import { WalkActions } from '../WalkActions'
 

@@ -1,9 +1,8 @@
 import type { FunctionComponent } from 'preact'
 import { Container } from '@material-ui/core'
 import { Switch, Route } from 'react-router-dom'
-
-import { Header } from '../Header'
-import { Walks } from '../Walks'
+import { Header } from '@components/Header'
+import { Walks } from '@components/Walks'
 
 export const App: FunctionComponent = () => (
 	<>

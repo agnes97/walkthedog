@@ -2,9 +2,9 @@ import '@fontsource/roboto'
 import { render } from 'preact'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { App } from '@components/App'
 
 import { darkTheme } from './theme'
-import { App } from './components/App'
 
 render(
 	<ThemeProvider theme={darkTheme}>

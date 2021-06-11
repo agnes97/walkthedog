@@ -1,9 +1,9 @@
 import type { FunctionComponent } from 'preact'
 import { Avatar, Box, makeStyles, Paper, Typography } from '@material-ui/core'
+import { timeToString, toTime } from '@utils/time'
 
 import PersonIcon from '@material-ui/icons/Person'
 
-import { timeToString, toTime } from '../../../../utils/time'
 import type { Walk } from '../../types'
 import { WalkActions } from '../WalkActions'
 
@@ -42,7 +42,6 @@ const WalkItem: FunctionComponent<{ walk: Walk }> = ({ walk }) => {
 	return (
 		<Paper
 			className={walkItem}
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error: It works as expected, but there is a wrong type in the library.
 			component="li"
 			elevation={3}

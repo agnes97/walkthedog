@@ -1,5 +1,5 @@
 import type { FunctionComponent } from 'preact'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
@@ -41,14 +41,16 @@ export const WalkControl: FunctionComponent<{
 
 	const [walkTime, setWalkTime] = useState<Time>(initialWalkTime)
 
+	const startedAt = useMemo(() => walk?.startedAt, [walk])
+
 	useEffect(() => {
-		if (walk) {
-			const setCurrentWalkTime = () => setWalkTime(toTime(walk.startedAt))
+		if (startedAt) {
+			const setCurrentWalkTime = () => setWalkTime(toTime(startedAt))
 			const interval = setInterval(setCurrentWalkTime, 1000)
 
 			return () => clearInterval(interval)
 		}
-	}, [walk, setWalkTime])
+	}, [startedAt, setWalkTime])
 
 	return (
 		<Box

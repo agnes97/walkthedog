@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
+const initialWalkTime = { fragments: [{ value: 0, unit: TimeUnit.Seconds }] }
+
 export const WalkControl: FunctionComponent<{
 	walk: Walk | null
 	onWalkStart: () => void
@@ -37,14 +39,13 @@ export const WalkControl: FunctionComponent<{
 }> = ({ walk, onWalkStart, onWalkStop, onWalkChange }) => {
 	const { button, currentWalk } = useStyles()
 
-	const [walkTime, setWalkTime] = useState<Time>({
-		fragments: [{ value: 0, unit: TimeUnit.Seconds }],
-	})
+	const [walkTime, setWalkTime] = useState<Time>(initialWalkTime)
 
 	useEffect(() => {
 		if (walk) {
 			const setCurrentWalkTime = () => setWalkTime(toTime(walk.startedAt))
 			const interval = setInterval(setCurrentWalkTime, 1000)
+
 			return () => clearInterval(interval)
 		}
 	}, [walk, setWalkTime])
@@ -86,7 +87,10 @@ export const WalkControl: FunctionComponent<{
 						color="secondary"
 						size="large"
 						startIcon={<PauseCircleOutlineIcon />}
-						onClick={onWalkStop}
+						onClick={() => {
+							onWalkStop()
+							setWalkTime(initialWalkTime)
+						}}
 					>
 						Stop
 					</Button>
